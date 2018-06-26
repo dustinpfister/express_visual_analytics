@@ -8,7 +8,7 @@ app = express();
 buildJSON.build({
 
     dir_csv: path.join(__dirname, 'csv'),
-    dir_json: path.join(__dirname, 'json')
+    dir_json: path.join(__dirname, 'public/json')
 
 }).then((obj) => {
 
@@ -19,17 +19,14 @@ buildJSON.build({
     app.set('views', path.join(__dirname, 'themes', app.get('theme')));
     app.set('view engine', 'ejs');
 
+    // static paths
+    app.use('/js', express.static('public/js'));
+    app.use('/json', express.static('public/json'));
+
+    // main index
     app.get('/', function (req, res) {
 
-	/*
-        res.json({
-            mess: 'looks good',
-            obj: obj
-        });
-		
-		*/
-		
-		res.render('index',{});
+        res.render('index', {});
 
     });
 
