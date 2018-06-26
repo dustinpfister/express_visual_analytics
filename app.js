@@ -8,14 +8,15 @@ buildJSON.build({
 
     dir_csv: path.join(__dirname, 'csv')
 
-}).then(() => {
+}).then((files) => {
 
     app.set('port', 8080);
 
     app.get('/', function (req, res) {
 
         res.json({
-            mess: 'okay'
+            mess: 'okay',
+            files: files
         });
 
     });
