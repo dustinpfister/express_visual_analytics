@@ -29,20 +29,20 @@ $.ajax({
 
             //if (jsDate.getMonth() === 0) {
 
-                var y = day.users * .125;
+            var y = day.users * .125;
 
-                var cube = new THREE.Mesh(new THREE.BoxGeometry(1, y, 1),
-                        new THREE.MeshNormalMaterial());
+            var cube = new THREE.Mesh(new THREE.BoxGeometry(1, y, 1),
+                    new THREE.MeshNormalMaterial());
 
-                var wd = jsDate.getDay(), // week day
-                x = wd + 1 * wd;
+            var wd = jsDate.getDay(), // week day
+            x = wd + 1 * wd;
 
-                cube.position.set(
-                    x,
-                    y / 2,
-                    i/ 7 + 1 * i/7);
+            cube.position.set(
+                x,
+                y / 2,
+                i / 7 + 1 * i / 7);
 
-                scene.add(cube);
+            scene.add(cube);
 
             //}
 
@@ -52,6 +52,17 @@ $.ajax({
 
     camera.position.set(15, 15, 15);
     camera.lookAt(0, 0, 0);
-    renderer.render(scene, camera);
+
+    var controls = new THREE.OrbitControls(camera);
+
+    var loop = function () {
+
+        requestAnimationFrame(loop)
+
+        renderer.render(scene, camera);
+
+    };
+
+    loop();
 
 });
