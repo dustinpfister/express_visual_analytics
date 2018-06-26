@@ -13,7 +13,11 @@ buildJSON.build({
 }).then((obj) => {
 
     // if build goes well start app
-    app.set('port', 8080);
+    app.set('port', 8080); // just set port 8080
+    app.set('theme', 'bootstrap'); // only one them for now so.
+
+    app.set('views', path.join(__dirname, 'themes', app.get('theme')));
+    app.set('view engine', 'ejs');
 
     app.get('/', function (req, res) {
 
