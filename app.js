@@ -11,9 +11,7 @@ app.get('/', (req, res) => {
     csv()
     .fromFile(csvFilePath)
     .then((jsonObj) => {
-
         res.json(jsonObj);
-
     });
 
 });
