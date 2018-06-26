@@ -10,7 +10,7 @@ buildJSON.build({
     dir_csv: path.join(__dirname, 'csv'),
     dir_json: path.join(__dirname, 'json')
 
-}).then((files) => {
+}).then((obj) => {
 
     // if build goes well start app
     app.set('port', 8080);
@@ -18,8 +18,8 @@ buildJSON.build({
     app.get('/', function (req, res) {
 
         res.json({
-            mess: 'okay',
-            files: files
+            mess: 'looks good',
+            obj: obj
         });
 
     });
