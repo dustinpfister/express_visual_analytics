@@ -4,12 +4,15 @@ buildJSON = require('./lib/build_json.js'),
 
 app = express();
 
+// build json files from csv
 buildJSON.build({
 
-    dir_csv: path.join(__dirname, 'csv')
+    dir_csv: path.join(__dirname, 'csv'),
+    dir_json: path.join(__dirname, 'json')
 
 }).then((files) => {
 
+    // if build goes well start app
     app.set('port', 8080);
 
     app.get('/', function (req, res) {
@@ -29,6 +32,7 @@ buildJSON.build({
 
 }).catch ((mess) => {
 
+    // else logg what went wrong
     console.log(mess);
 
 });
