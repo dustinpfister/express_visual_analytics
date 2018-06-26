@@ -1,23 +1,33 @@
 let express = require('express'),
-csvFilePath = './csv/2017_day.csv',
-csv = require('csvtojson'),
+path = require('path'),
+buildJSON = require('./lib/build_json.js'),
 
 app = express();
 
-app.set('port', 8080);
+buildJSON.build({
 
-app.get('/', (req, res) => {
+    dir_csv: path.join(__dirname, 'csv')
 
-    csv()
-    .fromFile(csvFilePath)
-    .then((jsonObj) => {
-        res.json(jsonObj);
+}).then(() => {
+
+    app.set('port', 8080);
+
+    app.get('/', function (req, res) {
+
+        res.json({
+            mess: 'okay'
+        });
+
     });
 
-});
+    app.listen(app.get('port'), () => {
 
-app.listen(app.get('port'), ()=>{
+        console.log('express_visual_analytics is up on port: ' + app.get('port'));
 
-    console.log('express_visual_analytics is up on port: ' + app.get('port'));
+    });
+
+}).catch ((mess) => {
+
+    console.log(mess);
 
 });
