@@ -21,10 +21,15 @@ buildJSON.build({
 
     app.get('/', function (req, res) {
 
+	/*
         res.json({
             mess: 'looks good',
             obj: obj
         });
+		
+		*/
+		
+		res.render('index',{});
 
     });
 
