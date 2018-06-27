@@ -22,6 +22,9 @@ buildJSON.build({
     // static paths
     app.use('/js', express.static('public/js'));
     app.use('/json', express.static('public/json'));
+	
+	//reports
+	app.use('/reports', require('./mw/reports.js'));
 
     // main index
     app.get('/', function (req, res) {
