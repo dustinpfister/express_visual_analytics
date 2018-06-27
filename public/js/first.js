@@ -13,11 +13,17 @@ $.ajax({
     camera = new THREE.PerspectiveCamera(75, 320 / 240, 1, 1000),
 
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize(320, 240);
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    $('#view').get(0).appendChild(renderer.domElement);
+    var el = $('#view').get(0);
+    el.appendChild(renderer.domElement);
 
-    console.log();
+    el = renderer.domElement;
+    el.style.position = 'fixed';
+    el.style.left = '0px';
+    el.style.top = '0px';
+    el.style.width = window.innerWidth + 'px';
+    el.style.height = window.innerHeight + 'px';
 
     days.forEach(function (day, i) {
 
@@ -29,10 +35,16 @@ $.ajax({
 
             //if (jsDate.getMonth() === 0) {
 
-            var y = day.users * .125;
+            var y = day.users * .125,
+            c = (i / days.length);
 
             var cube = new THREE.Mesh(new THREE.BoxGeometry(1, y, 1),
-                    new THREE.MeshNormalMaterial());
+                    new THREE.MeshStandardMaterial({
+
+                        color: new THREE.Color(0, day.users / 1000, 0),
+                        emissive: 0x2a2a2a
+
+                    }));
 
             var wd = jsDate.getDay(), // week day
             x = wd + 1 * wd;
@@ -50,14 +62,21 @@ $.ajax({
 
     });
 
-    camera.position.set(15, 15, 15);
-    camera.lookAt(0, 0, 0);
+    camera.position.set(30, 80, 0);
+    camera.lookAt(0, 43, 25);
 
-    var controls = new THREE.OrbitControls(camera);
+    var light = new THREE.PointLight();
+    light.position.set(0,50,0);
+	
+	light.add(new THREE.Mesh(new THREE.SphereGeometry(1,20,20), new THREE.MeshBasicMaterial({color: 0xffffff})))
+
+    scene.add(light);
+
+    //var controls = new THREE.OrbitControls(camera);
 
     var loop = function () {
 
-        requestAnimationFrame(loop)
+        requestAnimationFrame(loop);
 
         renderer.render(scene, camera);
 
