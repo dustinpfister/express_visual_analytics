@@ -15,6 +15,7 @@ $.ajax({
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
+	//renderer.setSize(320, 240);
 
     var el = $('#view').get(0);
     el.appendChild(renderer.domElement);
@@ -78,7 +79,10 @@ $.ajax({
 
     scene.add(light);
 
-    //var controls = new THREE.OrbitControls(camera);
+    var controls = new THREE.OrbitControls(camera);
+	controls.panSpeed  = 0.05;
+	controls.rotateSpeed  = 0.05;
+	controls.zoomSpeed  = 0.1;
 
     var loop = function () {
 
