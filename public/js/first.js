@@ -2,20 +2,38 @@
 console.log('yes');
 
 $.ajax({
-    url: '/json/2018.json'
 
-}).done(function (days) {
+    url: '/json/days.json'
+
+}).done(function (res) {
+
+    //console.log(Array.isArray(days))
+
+    var days = [];
+
+    if (res.days) {
+
+        days = res.days;
+
+    }
+
+    if (res.constructor.name === 'Array') {
+
+        days = res;
+
+    }
 
     // a scene is needed to place objects in
     var scene = new THREE.Scene();
     scene.background = new THREE.Color(0xafafaf);
 
     // I will need an camera to look at objects in the scene
-    var camera = new THREE.PerspectiveCamera(75, 320 / 240, 1, 1000),
+    var camera = new THREE.PerspectiveCamera(75, 320 / 240, 1, 1000);
 
-    renderer = new THREE.WebGLRenderer();
+    // renderer
+    var renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
-	//renderer.setSize(320, 240);
+    //renderer.setSize(320, 240);
 
     var el = $('#view').get(0);
     el.appendChild(renderer.domElement);
@@ -80,9 +98,9 @@ $.ajax({
     scene.add(light);
 
     var controls = new THREE.OrbitControls(camera);
-	controls.panSpeed  = 0.05;
-	controls.rotateSpeed  = 0.05;
-	controls.zoomSpeed  = 0.1;
+    controls.panSpeed = 0.05;
+    controls.rotateSpeed = 0.05;
+    controls.zoomSpeed = 0.1;
 
     var loop = function () {
 
