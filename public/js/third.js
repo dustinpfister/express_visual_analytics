@@ -57,6 +57,10 @@ $.ajax({
     controls.rotateSpeed = 0.1;
     controls.zoomSpeed = 0.5;
 
+    camera.position.set(-20, 20, -40);
+    camera.lookAt(80, 0, 0);
+	controls.target.set(80,0,0);
+
     days.forEach(function (day, i) {
 
         if (day.date.match(/\d+\/\d+\/\d+/)) {
@@ -86,21 +90,14 @@ $.ajax({
             y = h / 2;
             z = jsDate.getDay();
 
-            box.position.set(
+            box.position.set(x, y, z)
 
-                x,
-                y,
-
-                z)
-
+            // and the box to the scene
             scene.add(box);
 
         }
 
     });
-
-    camera.position.set(-20, 20, -40);
-    camera.lookAt(80, 0, 0);
 
     var loop = function () {
 
