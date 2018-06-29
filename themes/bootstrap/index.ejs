@@ -8,7 +8,7 @@
     <title>Visual Analytics</title>
 
     <link rel="stylesheet" href="/theme/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/theme/css/navbar.css">
+    <link rel="stylesheet" href="/theme/css/template.css">
     <style>
 body{background:#000000;color:#ffffff;}
     </style>
@@ -16,11 +16,20 @@ body{background:#000000;color:#ffffff;}
   </head>
   <body>
 
-      <%- include('navbar') %>
+
+    
   
+      <%- include('navbar') %>
+
+      <main role="main" class="container">
+
+      <div class="template">
       <script src="/js/jquery/3.3.1/jquery.min.js"></script>
       <%- include('layouts/' + layout) %>
 
+      </div>
+
+      </main>
 
       <script src="/theme/js/popper.js"></script>
       <script src="/theme/js/bootstrap.min.js"></script>
