@@ -50,17 +50,37 @@ $.ajax({
     // jsDate should be part of a day object
     (function () {
 
-        data.days.forEach(function (day) {
+        data.latest = {
+
+            date: new Date(0),
+            dayIndex: 0
+
+        };
+
+        data.days.forEach(function (day, i) {
 
             // get jsDate
             var d = day.date.split('/');
 
             day.jsDate = new Date('20' + d[2], d[0] - 1, d[1]);
 
+            if (day.jsDate > data.latest.date) {
+
+                data.latest = {
+
+                    date: day.jsDate,
+                    dayIndex: i
+
+                };
+
+            }
+
         });
 
     }
         ());
+
+    console.log('latest: ' + data.latest.date);
 
     // a scene is needed to place objects in
     var scene = new THREE.Scene();
@@ -143,7 +163,7 @@ $.ajax({
         },
 
         // material for the best day
-        bestday: function () {
+        bestday: function (options) {
 
             return new THREE.MeshStandardMaterial({
 
@@ -154,7 +174,21 @@ $.ajax({
         },
 
         // standard material for days that are not special
-        standard: function () {
+        time: function (options) {
+
+            return new THREE.MeshStandardMaterial({
+
+                color: new THREE.Color(1, 1, 1),
+                //wireframe:true,
+                transparent: true,
+                opacity: .5
+
+            });
+
+        },
+
+        // standard material for days that are not special
+        standard: function (options) {
 
             return new THREE.MeshStandardMaterial({
 
