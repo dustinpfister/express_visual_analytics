@@ -145,12 +145,13 @@ $.ajax({
             options.day = options.day || {
                 day: {}
             };
-            options.jsDate = options.jsDate || new Date();
-            options.bestDay = options.bestDay || -1;
+			options.data = options.data || {};
+            //options.jsDate = options.jsDate || new Date();
+            //options.bestDay = options.bestDay || -1;
 
             if (options.day.users) {
 
-                if (Number(options.day.users) === Number(options.bestDay)) {
+                if (Number(options.day.users) === Number(options.data.bestDay)) {
 
                     return this['bestday'](options);
 
@@ -164,6 +165,17 @@ $.ajax({
 
         // material for the best day
         bestday: function (options) {
+
+            return new THREE.MeshStandardMaterial({
+
+                color: new THREE.Color(0, 1, 0),
+                emissive: new THREE.Color(0, .25, 0)
+
+            });
+        },
+
+        // material for the best day
+        latest: function (options) {
 
             return new THREE.MeshStandardMaterial({
 
@@ -223,8 +235,9 @@ $.ajax({
                     materials.set({
 
                         day: day,
-                        bestDay: data.bestDay,
-                        jsDate: jsDate
+						data: data
+                        //bestDay: data.bestDay,
+                        //jsDate: jsDate
 
                     }));
 
