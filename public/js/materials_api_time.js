@@ -47,7 +47,20 @@ $.ajax({
     }
         (data));
 
-    console.log(data.bestDay);
+    // jsDate should be part of a day object
+    (function () {
+
+        data.days.forEach(function (day) {
+
+            // get jsDate
+            var d = day.date.split('/');
+
+            day.jsDate = new Date('20' + d[2], d[0] - 1, d[1]);
+
+        });
+
+    }
+        ());
 
     // a scene is needed to place objects in
     var scene = new THREE.Scene();
@@ -161,9 +174,7 @@ $.ajax({
 
         if (day.date.match(/\d+\/\d+\/\d+/) && day.users > 0) {
 
-            // get jsDate
-            var d = day.date.split('/'),
-            jsDate = new Date('20' + d[2], d[0] - 1, d[1]);
+            var jsDate = day.jsDate;
 
             // The Box for this day
             var d = 1,
@@ -181,16 +192,7 @@ $.ajax({
                         bestDay: data.bestDay,
                         jsDate: jsDate
 
-                    })
-                    /*
-                    new THREE.MeshStandardMaterial({
-
-                    color: new THREE.Color(1 - (jsDate.getDate() / 31), 0, jsDate.getFullYear() == '2017' ? 1 : 0),
-                    emissive: 0x2a2a2a
-
-                    })
-                     */
-                );
+                    }));
 
             // set BOX position
             var firstDay = new Date(jsDate.getFullYear(), jsDate.getMonth(), 1),
