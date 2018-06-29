@@ -51,19 +51,21 @@ threeShell = (function () {
         this.controls.rotateSpeed = 0.5;
         this.controls.zoomSpeed = 0.5;
 
-        // staring position of camera, and orbit controls focus
-        this.camera.position.set(-20, 20, -40);
-        this.camera.lookAt(80, 0, 0);
-        this.controls.target.set(80, 0, 0);
+        this.startCamera();
 
+        // log camera info on click
         this.el.addEventListener('click', function () {
 
-            //console.log(self.camera.position);
+            console.log('********** camera info **********');
+            console.log(self.camera.position);
+            console.log(self.controls.target);
+            console.log('********** **********');
 
         });
 
     };
 
+    // start a basic loop
     api.StandardScene.prototype.startLoop = function () {
 
         // the loop
@@ -79,6 +81,20 @@ threeShell = (function () {
         loop();
 
     };
+
+    // set camera, and orbit controls
+    api.StandardScene.prototype.startCamera = function (options) {
+
+        var options = options || {};
+        options.position = options.position || [-50, 50, -50];
+        options.lookAt = options.lookAt || [0, 0, 0];
+
+        //this.camera.position.set(options.[0],options.lookAt[1],options.lookAt[2]);
+        this.camera.position.fromArray(options.position);
+        this.camera.lookAt(options.lookAt[0], options.lookAt[1], options.lookAt[2]);
+        this.controls.target.set(options.lookAt[0], options.lookAt[1], options.lookAt[2]);
+
+    }
 
     return api;
 
