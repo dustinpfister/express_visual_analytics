@@ -42,6 +42,25 @@ threeShell = (function () {
 
     };
 
+    // add in ui elements to the scene
+    var addUI = function () {
+
+        var fsBox = new THREE.Mesh(
+                new THREE.BoxGeometry(2, 2, 2),
+                new THREE.MeshDepthMaterial({
+
+                    transparent: true,
+                    opacity: .5
+
+                }));
+
+        fsBox.position.set(-18, 13, -20);
+        this.camera.add(fsBox);
+
+        console.log(this.camera);
+
+    }
+
     api.StandardScene = function () {
 
         this.fullScreen = false;
@@ -93,30 +112,39 @@ threeShell = (function () {
         this.controls.rotateSpeed = 0.5;
         this.controls.zoomSpeed = 0.5;
 
+        addUI.call(this);
         this.startCamera();
 
         // log camera info on click
         this.el.addEventListener('click', function () {
 
-            console.log('********** camera info **********');
-            console.log(self.camera.position);
-            console.log(self.controls.target);
-            console.log('********** **********');
+            //console.log('********** camera info **********');
+            //console.log(self.camera.position);
+            //console.log(self.controls.target);
+            //console.log('********** **********');
 
         });
 
         // toggle full screen
         this.el.addEventListener('click', function (e) {
 
-            self.fullScreen = !self.fullScreen;
+            var box = e.target.getBoundingClientRect(),
+            x = e.clientX - box.left,
+            y = e.clientY - box.top;
 
-            if (self.fullScreen) {
+            if (x <= 75 && y <= 75) {
 
-                containerSetFull.call(self, e);
+                self.fullScreen = !self.fullScreen;
 
-            } else {
+                if (self.fullScreen) {
 
-                containerSetNotFull.call(self, e);
+                    containerSetFull.call(self, e);
+
+                } else {
+
+                    containerSetNotFull.call(self, e);
+
+                }
 
             }
 
