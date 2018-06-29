@@ -1,10 +1,14 @@
 
-
+// "First" work for visual_analytics
 getData.get(function (data) {
 
+    // using getdata.js to get the json data
     var days = data.days,
+
+    // using three_shell.js
     shell = new threeShell.StandardScene();
 
+    // can overwrite materials in materials.js
     materials.standard = function (options) {
 
         return new THREE.MeshNormalMaterial();
@@ -33,7 +37,7 @@ getData.get(function (data) {
             var firstDay = new Date(jsDate.getFullYear(), jsDate.getMonth(), 1),
             yearX = (jsDate.getFullYear() - 2017) * 6 * 12,
             monthX = (jsDate.getMonth() * 6),
-            dayX = Math.floor((firstDay.getDay() + jsDate.getDate() - 1) / 7), //Math.floor(jsDate.getDate() / 7),
+            dayX = Math.floor((firstDay.getDay() + jsDate.getDate() - 1) / 7),
             x = dayX + monthX + yearX;
             y = h / 2;
             z = jsDate.getDay();
@@ -47,6 +51,7 @@ getData.get(function (data) {
 
     });
 
+    // start the camera here
     shell.startCamera({
 
         position: [-8.86, 75.29, -47.75],
@@ -54,6 +59,7 @@ getData.get(function (data) {
 
     });
 
+    // can just call the startLoop method
     shell.startLoop();
 
 });
