@@ -40,17 +40,18 @@ $.ajax({
     // renderer
     var renderer = new THREE.WebGLRenderer();
     //renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setSize(320, 240);
+	renderer.setSize(320,240);
+    //renderer.setSize(320, 240);
 
     var el = $('#view').get(0);
     el.appendChild(renderer.domElement);
 
-    el = renderer.domElement;
-    el.style.position = 'fixed';
-    el.style.left = '0px';
-    el.style.top = '0px';
-    el.style.width = window.innerWidth + 'px';
-    el.style.height = window.innerHeight + 'px';
+    //el = renderer.domElement;
+    //el.style.position = 'fixed';
+    //el.style.left = '0px';
+    //el.style.top = '0px';
+    //el.style.width = window.innerWidth + 'px';
+    //el.style.height = window.innerHeight + 'px';
 
     days.forEach(function (day, i) {
 
@@ -109,7 +110,8 @@ $.ajax({
     });
 
     camera.position.set(30, 80, 0);
-    //camera.lookAt(0, 43, 25);
+    camera.lookAt(0, 43, 25);
+
     //var light = new THREE.PointLight();
     //light.position.set(0, 50, 0);
 
@@ -119,16 +121,10 @@ $.ajax({
 
     //scene.add(light);
 
-    var controls = new THREE.OrbitControls(camera,el);
-    //controls.panSpeed = 0.05;
-    //controls.rotateSpeed = 0.05;
-    //controls.zoomSpeed = 0.5;
-	
-	renderer.domElement.addEventListener('click', function(){
-		
-		console.log(camera.position);
-		
-	})
+    var controls = new THREE.OrbitControls(camera);
+    controls.panSpeed = 0.05;
+    controls.rotateSpeed = 0.05;
+    controls.zoomSpeed = 0.5;
 
     var loop = function () {
 
