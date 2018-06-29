@@ -33,13 +33,11 @@ getData.get(function (data) {
                     }));
 
             // set BOX position
-            var firstDay = new Date(jsDate.getFullYear(), jsDate.getMonth(), 1);
-            //yearX = (jsDate.getFullYear() - 2017) * 6 * 12,
-            //monthX = (jsDate.getMonth() * 6),
-            var dayX = Math.floor((firstDay.getDay() + jsDate.getDate() - 1) / 7);
+            var firstDay = new Date(jsDate.getFullYear(), jsDate.getMonth(), 1),
+            dayX = Math.floor((firstDay.getDay() + jsDate.getDate() - 1) / 7);
 
-            var groupKey = jsDate.getFullYear() + '_' + jsDate.getMonth();
-
+            // find group
+            groupKey = jsDate.getFullYear() + '_' + jsDate.getMonth();
             var group = groups[groupKey];
             if (!group) {
 
@@ -49,15 +47,17 @@ getData.get(function (data) {
                 gInfo.y = jsDate.getFullYear();
                 gInfo.m = jsDate.getMonth();
 
+                // add new group
                 shell.scene.add(group);
             }
 
-            var x = dayX;
+            var x = dayX,
             y = h / 2;
             z = jsDate.getDay();
 
             box.position.set(x, y, z);
 
+            // add day box to group
             group.add(box);
 
         }
