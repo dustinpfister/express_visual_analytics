@@ -65,11 +65,9 @@ $.ajax({
             var d = day.date.split('/'),
             jsDate = new Date('20' + d[2], d[0] - 1, d[1]);
 
-            // The Box for this day
-            var d = 1,
-            h = day.users * .125,
-            w = 1,
-            box = new THREE.Mesh(new THREE.BoxGeometry(d, h, w),
+
+
+            var cube = new THREE.Mesh(new THREE.BoxGeometry(1, y, 1),
                     new THREE.MeshStandardMaterial({
 
                         color: new THREE.Color(1 - (jsDate.getDate() / 31), 0, jsDate.getFullYear() == '2017' ? 1 : 0),
@@ -77,23 +75,26 @@ $.ajax({
 
                     }));
 
-            // set BOX position
+
             var firstDay = new Date(jsDate.getFullYear(), jsDate.getMonth(), 1),
+
             yearX = (jsDate.getFullYear() - 2017) * 6 * 12,
             monthX = (jsDate.getMonth() * 6),
             dayX = Math.floor((firstDay.getDay() + jsDate.getDate() - 1) / 7), //Math.floor(jsDate.getDate() / 7),
-            x = dayX + monthX + yearX;
-            y = h / 2;
-            z = jsDate.getDay();
 
-            box.position.set(
+            x = dayX + monthX + yearX,
+			            y = day.users * .125;
+
+            cube.position.set(
 
                 x,
-                y,
+                y / 2,
 
-                z)
+                jsDate.getDay())
 
-            scene.add(box);
+
+            scene.add(cube);
+
 
         }
 
@@ -101,6 +102,7 @@ $.ajax({
 
     camera.position.set(-20, 20, -40);
     camera.lookAt(80, 0, 0);
+
 
     var loop = function () {
 
