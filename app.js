@@ -26,9 +26,8 @@ app.get('/', function (req, res) {
 
 // WORKS PATH
 app.use('/works', require('./routes/works')({
-
-        views: app.get('views')
-
+        views: app.get('views'),
+        dir_works: path.join(__dirname, 'public/js/visual_analytics/works')
     }));
 
 // START LISTENING

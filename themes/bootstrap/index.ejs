@@ -9,13 +9,7 @@ body{background:#000000;color:#ffffff;}
   </head>
   <body>
   
-    <% if(layout === 'work'){ %>
+	    <%- include('layouts/' + layout) %>
 	
-	    <%- include('work') %>
-	
-    <% }else{ %>
-	<p>not a work path</p>
-	<% } %>
-
   </body>
 </html>
