@@ -7,21 +7,47 @@ $.ajax({
 
 }).done(function (res) {
 
-    //console.log(Array.isArray(days))
-
-    var days = [];
+    var data = {
+        days: [],
+        bestDay: -1,
+    };
 
     if (res.days) {
 
-        days = res.days;
+        data.days = res.days;
 
     }
 
     if (res.constructor.name === 'Array') {
 
-        days = res;
+        data.days = res;
 
     }
+
+    // reference data.days
+    var days = data.days;
+
+    // find the best day once for data.bestDay
+    var bestDay = (function (data) {
+
+        data.bestDay = -1;
+
+        data.days.forEach(function (day) {
+
+            if (Number(day.users) > data.bestDay) {
+
+                data.bestDay = Number(day.users);
+
+            }
+
+        });
+
+        return data.bestDay;
+
+    }
+        (data));
+
+    console.log(data.bestDay);
 
     // a scene is needed to place objects in
     var scene = new THREE.Scene();
@@ -108,8 +134,8 @@ $.ajax({
 
             return new THREE.MeshStandardMaterial({
 
-                color: new THREE.Color(1, .5, 0),
-                emissive: new THREE.Color(.25, 0, 0)
+                color: new THREE.Color(0, 1, 0),
+                emissive: new THREE.Color(0, .25, 0)
 
             });
         },
@@ -129,26 +155,6 @@ $.ajax({
         }
 
     };
-
-    // find the best day once
-    var bestDay = (function () {
-
-        var best = 0;
-
-        days.forEach(function (day) {
-
-            if (Number(day.users) > best) {
-
-                best = Number(day.users);
-
-            }
-
-        });
-
-        return best;
-
-    }
-        ());
 
     // for each day in the response
     days.forEach(function (day, i) {
@@ -172,7 +178,7 @@ $.ajax({
                     materials.set({
 
                         day: day,
-                        bestDay: bestDay,
+                        bestDay: data.bestDay,
                         jsDate: jsDate
 
                     })
