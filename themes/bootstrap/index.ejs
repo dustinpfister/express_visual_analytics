@@ -1,22 +1,28 @@
 <!doctype html>
 <html lang="en">
   <head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Visual Analytics</title>
-    <meta charset="utf-8">
 
     <link rel="stylesheet" href="/theme/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/theme/css/navbar.css">
     <style>
 body{background:#000000;color:#ffffff;}
     </style>
 
   </head>
   <body>
+
+      <%- include('navbar') %>
   
       <script src="/js/jquery/3.3.1/jquery.min.js"></script>
       <%- include('layouts/' + layout) %>
 
 
+      <script src="/theme/js/popper.js"></script>
       <script src="/theme/js/bootstrap.min.js"></script>
 
   </body>
