@@ -25,7 +25,7 @@ $.ajax({
 
     // a scene is needed to place objects in
     var scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xafafaf);
+    scene.background = new THREE.Color(0x1a1a1a);
 
     // I will need an camera to look at objects in the scene
     var aspect = 32 / 24,
@@ -67,8 +67,8 @@ $.ajax({
 
     // Orbit controls
     var controls = new THREE.OrbitControls(camera, el);
-    controls.panSpeed = 0.1;
-    controls.rotateSpeed = 0.1;
+    controls.panSpeed = 0.5;
+    controls.rotateSpeed = 0.5;
     controls.zoomSpeed = 0.5;
 
     // staring position of camera, and orbit controls focus
@@ -76,31 +76,77 @@ $.ajax({
     camera.lookAt(80, 0, 0);
     controls.target.set(80, 0, 0);
 
-    // materials
-
+    // materials API
     var materials = {
 
         set: function (options) {
 
             options = options || {};
+            options.day = options.day || { day:{}};
+            options.jsDate = options.jsDate || new Date();
+            options.bestDay = options.bestDay || -1;
 
-            var m = 'standard';
+            if (options.day.users) {
 
-            return this[m](options);
+                if (Number(options.day.users) === Number(options.bestDay)) {
+
+                    return this['bestday'](options);
+
+                }
+
+            }
+
+            return this['standard'](options);
 
         },
 
+        bestday: function () {
+			
+			console.log
+
+            return new THREE.MeshStandardMaterial({
+
+                color: new THREE.Color(1, .5, 0),
+				emissive: new THREE.Color(.25, 0, 0)
+
+            });
+        },
+
+        // standard material for days that are not special
         standard: function () {
 
             return new THREE.MeshStandardMaterial({
 
-                color: new THREE.Color(1, 1, 1)
+                color: new THREE.Color(1, 1, 1),
+				//wireframe:true,
+				transparent: true,
+				opacity: .5
 
             });
 
         }
 
     };
+
+    // find the best day once
+    var bestDay = (function () {
+
+        var best = 0;
+
+        days.forEach(function (day) {
+
+            if (Number(day.users) > best) {
+
+                best = Number(day.users);
+
+            }
+
+        });
+
+        return best;
+
+    }
+        ());
 
     // for each day in the response
     days.forEach(function (day, i) {
@@ -121,7 +167,13 @@ $.ajax({
                     new THREE.BoxGeometry(d, h, w),
 
                     // material(s)
-                    materials.set()
+                    materials.set({
+
+                        day: day,
+                        bestDay: bestDay,
+                        jsDate: jsDate
+
+                    })
                     /*
                     new THREE.MeshStandardMaterial({
 
