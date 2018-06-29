@@ -3,7 +3,10 @@
 getData.get(function(data){
 
     var days = data.days;
+	
+	var shell = new threeShell.StandardScene();
 
+	/*
     // a scene is needed to place objects in
     var scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
@@ -57,6 +60,8 @@ getData.get(function(data){
     camera.lookAt(80, 0, 0);
     controls.target.set(80, 0, 0);
 
+	*/
+	
     materials.standard = function (options) {
 
         return new THREE.MeshNormalMaterial();
@@ -93,22 +98,13 @@ getData.get(function(data){
             box.position.set(x, y, z)
 
             // and the box to the scene
-            scene.add(box);
+            shell.scene.add(box);
 
         }
 
     });
 
-    // the loop
-    var loop = function () {
-
-        requestAnimationFrame(loop);
-
-        renderer.render(scene, camera);
-
-    };
-
-    loop();
+	shell.startLoop();
 
 });
 
