@@ -84,7 +84,7 @@ $.ajax({
 
     // a scene is needed to place objects in
     var scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x1a1a1a);
+    scene.background = new THREE.Color(0xffffff);
 
     // I will need an camera to look at objects in the scene
     var aspect = 32 / 24,
@@ -146,19 +146,20 @@ $.ajax({
                 day: {}
             };
             options.data = options.data || {};
+			
+			options.daysBack = options.daysBack || options.data.days.length;
 
-			
-			// we should have a latest day
-			if(options.data.latest){
-				
-				if(options.day.jsDate === options.data.latest.date){
-					
-					return this['latest'](options);
-					
-				}
-				
-			}
-			
+            // we should have a latest day
+            if (options.data.latest) {
+
+                if (options.day.jsDate === options.data.latest.date) {
+
+                    return this['latest'](options);
+
+                }
+
+            }
+
             // we should have users
             if (options.day.users) {
 
@@ -169,9 +170,8 @@ $.ajax({
                 }
 
             }
-			
 
-            return this['standard'](options);
+            return this['time'](options);
 
         },
 
@@ -180,8 +180,8 @@ $.ajax({
 
             return new THREE.MeshStandardMaterial({
 
-                color: new THREE.Color(0, 1, 0),
-                emissive: new THREE.Color(0, .25, 0)
+                color: new THREE.Color(1, 0, 0),
+                emissive: new THREE.Color(.25, 0, 0)
 
             });
         },
@@ -200,12 +200,24 @@ $.ajax({
         // standard material for days that are not special
         time: function (options) {
 
+            var latest = options.data.latest.date,
+            time = latest - options.day.jsDate,
+            per = 1 - (time / (1000 * 60 * 60 * 24 * options.daysBack));
+
+            if (per < 0) {
+                per = 0;
+            }
+
+            if (per > 1) {
+                per = 1;
+            }
+
             return new THREE.MeshStandardMaterial({
 
-                color: new THREE.Color(1, 1, 1),
+                color: new THREE.Color(per, per, 0),
                 //wireframe:true,
                 transparent: true,
-                opacity: .5
+                opacity: per * .8
 
             });
 
