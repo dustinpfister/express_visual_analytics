@@ -8,7 +8,7 @@ threeShell = (function () {
         var sty = this.el.style;
 
         sty.position = 'fixed';
-		sty.zIndex = '1100';
+        sty.zIndex = '1100';
         sty.left = '0px';
         sty.top = '0px';
         sty.width = window.innerWidth + 'px';
@@ -33,9 +33,11 @@ threeShell = (function () {
         h = this.aspectLevel;
 
         sty.position = 'static';
+        sty.marginRight = 'auto';
+        sty.marginLeft = 'auto';
         sty.width = w + 'px';
         sty.height = h + 'px';
-        sty.background = '#000000';
+        sty.background = '#0000ff';
 
         this.renderer.setSize(w, h);
 
