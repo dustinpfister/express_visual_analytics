@@ -69,7 +69,8 @@ $.ajax({
             var cube = new THREE.Mesh(new THREE.BoxGeometry(1, y, 1),
                     new THREE.MeshStandardMaterial({
 
-                        color: colors[jsDate.getDay()],
+                        //color: colors[jsDate.getDay()],
+                        color: new THREE.Color(1 - (jsDate.getDate() / 31), 0, jsDate.getFullYear() == '2017' ? 1 : 0),
                         emissive: 0x2a2a2a
 
                     }));
@@ -77,10 +78,11 @@ $.ajax({
             //var wd = jsDate.getDay(), // week day
             //x = wd + 1 * wd;
 
-            var yearX = (jsDate.getFullYear() - 2017) * 7 * 12,
-            monthX = (jsDate.getMonth() * 7),
+            var firstDay = new Date(jsDate.getFullYear(), jsDate.getMonth(), 1);
 
-            dayX = Math.floor(jsDate.getDate() / 7),
+            var yearX = (jsDate.getFullYear() - 2017) * 6 * 12,
+            monthX = (jsDate.getMonth() * 6),
+            dayX = Math.floor((firstDay.getDay() + jsDate.getDate() - 1) / 7), //Math.floor(jsDate.getDate() / 7),
 
             x = dayX + monthX + yearX;
 
