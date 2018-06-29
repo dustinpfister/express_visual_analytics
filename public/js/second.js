@@ -4,8 +4,8 @@ console.log('yes');
 $.ajax({
 
     //url: '/json/days.json'
-	//url: '/json/2018.json'
-	url: '/json/db.json'
+    //url: '/json/2018.json'
+    url: '/json/db.json'
 
 }).done(function (res) {
 
@@ -31,6 +31,11 @@ $.ajax({
 
     // I will need an camera to look at objects in the scene
     var camera = new THREE.PerspectiveCamera(75, 320 / 240, 1, 1000);
+
+    var light = new THREE.PointLight();
+    light.position.set(0, 25, 0);
+    camera.add(light);
+    scene.add(camera);
 
     // renderer
     var renderer = new THREE.WebGLRenderer();
@@ -64,20 +69,34 @@ $.ajax({
             var cube = new THREE.Mesh(new THREE.BoxGeometry(1, y, 1),
                     new THREE.MeshStandardMaterial({
 
-                        //color: new THREE.Color(0, day.users / 1000, 0),
                         color: colors[jsDate.getDay()],
-                        //color: new THREE.Color(0, jsDate.getDay() / 6, 0),
-                        emissive: 0x000000
+                        emissive: 0x2a2a2a
 
                     }));
 
-            var wd = jsDate.getDay(), // week day
-            x = wd + 1 * wd;
+            //var wd = jsDate.getDay(), // week day
+            //x = wd + 1 * wd;
+
+            var yearX = (jsDate.getFullYear() - 2017) * 7 * 12,
+            monthX = (jsDate.getMonth() * 7),
+
+            dayX = Math.floor(jsDate.getDate() / 7),
+
+            x = dayX + monthX + yearX;
 
             cube.position.set(
+
                 x,
                 y / 2,
-                i / 7 + 1 * i / 7);
+
+                jsDate.getDay())
+
+            /*
+            cube.position.set(
+            x,
+            y / 2,
+            i / 7 + 1 * i / 7);
+             */
 
             scene.add(cube);
 
@@ -90,19 +109,19 @@ $.ajax({
     camera.position.set(30, 80, 0);
     camera.lookAt(0, 43, 25);
 
-    var light = new THREE.PointLight();
-    light.position.set(0, 50, 0);
+    //var light = new THREE.PointLight();
+    //light.position.set(0, 50, 0);
 
-    light.add(new THREE.Mesh(new THREE.SphereGeometry(1, 20, 20), new THREE.MeshBasicMaterial({
-                color: 0xffffff
-            })))
+    //light.add(new THREE.Mesh(new THREE.SphereGeometry(1, 20, 20), new THREE.MeshBasicMaterial({
+    //            color: 0xffffff
+    //        })))
 
-    scene.add(light);
+    //scene.add(light);
 
     var controls = new THREE.OrbitControls(camera);
     controls.panSpeed = 0.05;
     controls.rotateSpeed = 0.05;
-    controls.zoomSpeed = 0.1;
+    controls.zoomSpeed = 0.5;
 
     var loop = function () {
 
