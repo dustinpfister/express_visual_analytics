@@ -16,7 +16,11 @@ app.use('/json', express.static('public/json'));
 // MAIN INDEX
 app.get('/', function (req, res) {
 
-    res.render('index', {});
+    res.render('index', {
+
+        layout: 'home'
+
+    });
 
 });
 
