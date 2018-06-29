@@ -8,6 +8,7 @@ threeShell = (function () {
         var sty = this.el.style;
 
         sty.position = 'fixed';
+		sty.zIndex = '1100';
         sty.left = '0px';
         sty.top = '0px';
         sty.width = window.innerWidth + 'px';
