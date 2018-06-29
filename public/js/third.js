@@ -56,7 +56,7 @@ $.ajax({
         // set fix position of dom element, and scale
         el = renderer.domElement;
         el.style.position = 'fixed';
-        el.style.left = Number((window.innerWidth - w) / 2)+'px';
+        el.style.left = Number((window.innerWidth - w) / 2) + 'px';
         el.style.top = '0px';
         el.style.width = w + 'px';
         el.style.height = h + 'px';
@@ -76,6 +76,32 @@ $.ajax({
     camera.lookAt(80, 0, 0);
     controls.target.set(80, 0, 0);
 
+    // materials
+
+    var materials = {
+
+        set: function (options) {
+
+            options = options || {};
+
+            var m = 'standard';
+
+            return this[m](options);
+
+        },
+
+        standard: function () {
+
+            return new THREE.MeshStandardMaterial({
+
+                color: new THREE.Color(1, 1, 1)
+
+            });
+
+        }
+
+    };
+
     // for each day in the response
     days.forEach(function (day, i) {
 
@@ -89,13 +115,22 @@ $.ajax({
             var d = 1,
             h = day.users * .125,
             w = 1,
-            box = new THREE.Mesh(new THREE.BoxGeometry(d, h, w),
+            box = new THREE.Mesh(
+
+                    // geometry
+                    new THREE.BoxGeometry(d, h, w),
+
+                    // material(s)
+                    materials.set()
+                    /*
                     new THREE.MeshStandardMaterial({
 
-                        color: new THREE.Color(1 - (jsDate.getDate() / 31), 0, jsDate.getFullYear() == '2017' ? 1 : 0),
-                        emissive: 0x2a2a2a
+                    color: new THREE.Color(1 - (jsDate.getDate() / 31), 0, jsDate.getFullYear() == '2017' ? 1 : 0),
+                    emissive: 0x2a2a2a
 
-                    }));
+                    })
+                     */
+                );
 
             // set BOX position
             var firstDay = new Date(jsDate.getFullYear(), jsDate.getMonth(), 1),
