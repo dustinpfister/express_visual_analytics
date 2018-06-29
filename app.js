@@ -1,47 +1,35 @@
 let express = require('express'),
 path = require('path'),
-buildJSON = require('./lib/build_json.js'),
 
 app = express();
 
-// build json files from csv
-//buildJSON.build({
+// SETTINGS
+app.set('port', 8080); // just set port 8080
+app.set('theme', 'bootstrap'); // only one them for now so.
+app.set('views', path.join(__dirname, 'themes', app.get('theme')));
+app.set('view engine', 'ejs');
 
-//    dir_csv: path.join(__dirname, 'csv'),
-//    dir_json: path.join(__dirname, 'public/json')
+// STATIC PATHS
+app.use('/js', express.static('public/js'));
+app.use('/json', express.static('public/json'));
 
-//}).then((obj) => {
+// MAIN INDEX
+app.get('/', function (req, res) {
 
-    // if build goes well start app
-    app.set('port', 8080); // just set port 8080
-    app.set('theme', 'bootstrap'); // only one them for now so.
+    res.render('index', {});
 
-    app.set('views', path.join(__dirname, 'themes', app.get('theme')));
-    app.set('view engine', 'ejs');
+});
 
-    // static paths
-    app.use('/js', express.static('public/js'));
-    app.use('/json', express.static('public/json'));
-	
-	//reports
-	//app.use('/reports', require('./mw/reports.js'));
+// WORKS PATH
+app.use('/works', require('./routes/works')({
 
-    // main index
-    app.get('/', function (req, res) {
+        views: app.get('views')
 
-        res.render('index', {});
+    }));
 
-    });
+// START LISTENING
+app.listen(app.get('port'), () => {
 
-    app.listen(app.get('port'), () => {
+    console.log('express_visual_analytics is up on port: ' + app.get('port'));
 
-        console.log('express_visual_analytics is up on port: ' + app.get('port'));
-
-    });
-
-//}).catch ((mess) => {
-
-    // else logg what went wrong
-//    console.log(mess);
-
-//});
+});
