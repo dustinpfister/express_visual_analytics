@@ -40,18 +40,22 @@ $.ajax({
     // renderer
     var renderer = new THREE.WebGLRenderer();
     //renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.setSize(320,240);
-    //renderer.setSize(320, 240);
+    renderer.setSize(320, 240);
 
     var el = $('#view').get(0);
     el.appendChild(renderer.domElement);
 
-    //el = renderer.domElement;
-    //el.style.position = 'fixed';
-    //el.style.left = '0px';
-    //el.style.top = '0px';
-    //el.style.width = window.innerWidth + 'px';
-    //el.style.height = window.innerHeight + 'px';
+    el = renderer.domElement;
+    el.style.position = 'fixed';
+    el.style.left = '0px';
+    el.style.top = '0px';
+    el.style.width = window.innerWidth + 'px';
+    el.style.height = window.innerHeight + 'px';
+
+    var controls = new THREE.OrbitControls(camera, el);
+    controls.panSpeed = 0.1;
+    controls.rotateSpeed = 0.1;
+    controls.zoomSpeed = 0.5;
 
     days.forEach(function (day, i) {
 
@@ -94,37 +98,17 @@ $.ajax({
 
                 jsDate.getDay())
 
-            /*
-            cube.position.set(
-            x,
-            y / 2,
-            i / 7 + 1 * i / 7);
-             */
 
             scene.add(cube);
 
-            //}
 
         }
 
     });
 
-    camera.position.set(30, 80, 0);
-    camera.lookAt(0, 43, 25);
+    camera.position.set(-20, 20, -40);
+    camera.lookAt(80, 0, 0);
 
-    //var light = new THREE.PointLight();
-    //light.position.set(0, 50, 0);
-
-    //light.add(new THREE.Mesh(new THREE.SphereGeometry(1, 20, 20), new THREE.MeshBasicMaterial({
-    //            color: 0xffffff
-    //        })))
-
-    //scene.add(light);
-
-    var controls = new THREE.OrbitControls(camera);
-    controls.panSpeed = 0.05;
-    controls.rotateSpeed = 0.05;
-    controls.zoomSpeed = 0.5;
 
     var loop = function () {
 
