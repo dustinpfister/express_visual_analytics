@@ -79,7 +79,7 @@ $.ajax({
     // for each day in the response
     days.forEach(function (day, i) {
 
-        if (day.date.match(/\d+\/\d+\/\d+/)) {
+        if (day.date.match(/\d+\/\d+\/\d+/) && day.users > 0) {
 
             // get jsDate
             var d = day.date.split('/'),
