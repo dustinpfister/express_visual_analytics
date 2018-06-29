@@ -28,7 +28,9 @@ $.ajax({
     scene.background = new THREE.Color(0xafafaf);
 
     // I will need an camera to look at objects in the scene
-    var camera = new THREE.PerspectiveCamera(75, 320 / 240, 1, 1000);
+    var aspect = 32 / 24,
+    aspectLevel = 480;
+    var camera = new THREE.PerspectiveCamera(75, aspect, 1, 1000);
 
     var light = new THREE.PointLight();
     light.position.set(0, 25, 0);
@@ -38,24 +40,28 @@ $.ajax({
     // renderer
     var renderer = new THREE.WebGLRenderer();
     //renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setSize(320, 240);
+    renderer.setSize(aspect * aspectLevel, aspectLevel);
 
+    // append
     var el = $('#view').get(0);
     el.appendChild(renderer.domElement);
 
+    // resize
     var onResize = function () {
 
-        //var el = $('#view').get(0);
+        // to keep it at aspect
+        var w = window.innerHeight * aspect,
+        h = window.innerHeight;
+
         // set fix position of dom element, and scale
         el = renderer.domElement;
         el.style.position = 'fixed';
-        el.style.left = '0px';
+        el.style.left = Number((window.innerWidth - w) / 2)+'px';
         el.style.top = '0px';
-        el.style.width = window.innerWidth + 'px';
-        el.style.height = window.innerHeight + 'px';
+        el.style.width = w + 'px';
+        el.style.height = h + 'px';
 
     };
-
     onResize();
     window.addEventListener('resize', onResize);
 
@@ -70,6 +76,7 @@ $.ajax({
     camera.lookAt(80, 0, 0);
     controls.target.set(80, 0, 0);
 
+    // for each day in the response
     days.forEach(function (day, i) {
 
         if (day.date.match(/\d+\/\d+\/\d+/)) {
@@ -108,6 +115,7 @@ $.ajax({
 
     });
 
+    // the loop
     var loop = function () {
 
         requestAnimationFrame(loop);
