@@ -1,6 +1,4 @@
 
-console.log('yes');
-
 $.ajax({
 
     //url: '/json/days.json'
@@ -45,21 +43,32 @@ $.ajax({
     var el = $('#view').get(0);
     el.appendChild(renderer.domElement);
 
-    el = renderer.domElement;
-    el.style.position = 'fixed';
-    el.style.left = '0px';
-    el.style.top = '0px';
-    el.style.width = window.innerWidth + 'px';
-    el.style.height = window.innerHeight + 'px';
+    var onResize = function () {
 
+        //var el = $('#view').get(0);
+        // set fix position of dom element, and scale
+        el = renderer.domElement;
+        el.style.position = 'fixed';
+        el.style.left = '0px';
+        el.style.top = '0px';
+        el.style.width = window.innerWidth + 'px';
+        el.style.height = window.innerHeight + 'px';
+
+    };
+
+    onResize();
+    window.addEventListener('resize', onResize);
+
+    // Orbit controls
     var controls = new THREE.OrbitControls(camera, el);
     controls.panSpeed = 0.1;
     controls.rotateSpeed = 0.1;
     controls.zoomSpeed = 0.5;
 
+    // staring position of camera, and orbit controls focus
     camera.position.set(-20, 20, -40);
     camera.lookAt(80, 0, 0);
-	controls.target.set(80,0,0);
+    controls.target.set(80, 0, 0);
 
     days.forEach(function (day, i) {
 
