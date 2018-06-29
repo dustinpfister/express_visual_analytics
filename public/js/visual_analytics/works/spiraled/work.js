@@ -64,23 +64,32 @@ getData.get(function (data) {
 
     });
 
-    // positon groups
-    console.log(groups);
+    // position groups
+    (function () {
 
-    for (var groupKey in groups) {
+        var step = 2.5;
 
-        var group = groups[groupKey],
-        gInfo = group.userData;
+        for (var groupKey in groups) {
 
-        group.position.set((gInfo.y - 2017) * 120 + gInfo.m * 10, 0, 0)
+            var group = groups[groupKey],
+            gInfo = group.userData;
 
+            var len = (gInfo.y - 2017) * 12 + gInfo.m * 1,
+            r = Math.PI * 2 * (len % 12 / 12),
+            x = Math.cos(r) * (len * step),
+            z = Math.sin(r) * (len * step);
+
+            group.position.set(x, 0, z)
+
+        }
     }
+        ());
 
     // start the camera here
     shell.startCamera({
 
-        position: [-8.86, 75.29, -47.75],
-        lookAt: [95, 0, 0]
+        position: [3.1541, 73.7662, -48.2703],
+        lookAt: [1.3786, -1.9598, 54.7771]
 
     });
 

@@ -121,10 +121,10 @@ threeShell = (function () {
         // log camera info on click
         this.el.addEventListener('click', function () {
 
-            //console.log('********** camera info **********');
-            //console.log(self.camera.position);
-            //console.log(self.controls.target);
-            //console.log('********** **********');
+            console.log('********** camera info **********');
+            console.log(self.camera.position);
+            console.log(self.controls.target);
+            console.log('********** **********');
 
         });
 
