@@ -144,46 +144,6 @@ var materials = (function () {
 
             });
 
-            /*
-            var i = 0;
-            if (options.day) {
-
-            var jsDate = options.day.jsDate;
-            i = jsDate.getMonth() * 31;
-
-
-            i += jsDate.getDate();
-
-            }
-
-            return new THREE.MeshStandardMaterial({
-
-            color: colorRange(i / (31 * 12)) //options.monthColors[i]
-
-            });
-             */
-
-            /*
-            var g = 1,
-            b = 0;
-            if (options.day) {
-
-            var jsDate = options.day.jsDate,
-            m = jsDate.getMonth(),
-            d = jsDate.getDate();
-
-            g = m / 11;
-            b = d / 31;
-
-            }
-
-            return new THREE.MeshStandardMaterial({
-
-            color: new THREE.Color(0, g, b)
-
-            });
-             */
-
         },
 
         // standard material for days that are not special
@@ -198,7 +158,17 @@ var materials = (function () {
 
             });
 
-        }
+        },
+
+        random: function (options) {
+
+            return new THREE.MeshStandardMaterial({
+
+                color: colorRange(Math.random())
+
+            });
+
+        },
 
     };
 

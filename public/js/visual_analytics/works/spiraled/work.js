@@ -25,7 +25,7 @@ getData.get(function (data) {
                     // geometry
                     new THREE.BoxGeometry(d, h, w),
 
-                    materials.perMonth({
+                    materials.random({
 
                         day: day,
                         data: data
