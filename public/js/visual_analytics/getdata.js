@@ -3,7 +3,9 @@ var getData = (function () {
 
     var api = {};
 
-    api.dbUrl = '/json/db.json';
+    //api.dbUrl = '/json/db.json';
+
+    api.dbUrl = '/flyjson?sd=1/1/17&ed=6/29/18';
 
     api.get = function (done) {
 
@@ -18,16 +20,19 @@ var getData = (function () {
                 bestDay: -1,
             };
 
-            if (res.days) {
+            // flyjson 0.1.x
+            if (res.data) {
 
-                data.days = res.days;
+                data.days = res.data;
 
             }
 
+            // old formats
+            if (res.days) {
+                data.days = res.days;
+            }
             if (res.constructor.name === 'Array') {
-
                 data.days = res;
-
             }
 
             // reference data.days
@@ -96,4 +101,5 @@ var getData = (function () {
 
     return api;
 
-}());
+}
+    ());
