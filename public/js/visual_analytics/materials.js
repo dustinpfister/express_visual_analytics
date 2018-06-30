@@ -13,13 +13,34 @@ var materials = (function () {
 
     };
 
+    // color range
+    var colorRange = function (per) {
+        var c = 0,
+        i = 0,
+        arr = [],
+        range = Math.pow(16, 6) - 1,
+        miss;
+        per = per || 0;
+        c = Number(Math.floor(range * per)).toString(16);
+        c = c.split('');
+        miss = 6 - c.length;
+        if (miss > 0) {
+            while (i < miss) {
+                arr.push(0);
+                i += 1;
+            }
+            c = [].concat(arr, c);
+        }
+        return new THREE.Color('#' + c.join(''));
+    };
+
     return {
 
         //  fund out what material to use here
         set: function (options) {
 
-		    setOptions(options);
-		
+            setOptions(options);
+
             // we should have a latest day
             if (options.data.latest) {
 
@@ -71,7 +92,7 @@ var materials = (function () {
         // over time material
         time: function (options) {
 
-           setOptions(options);
+            setOptions(options);
 
             var latest = options.data.latest.date,
             time = latest - options.day.jsDate,
@@ -90,6 +111,78 @@ var materials = (function () {
                 color: new THREE.Color(1, per, 0)
 
             });
+
+        },
+
+        perMonth: function (options) {
+
+            setOptions(options);
+
+            options.monthColors = options.monthColors || [
+                    new THREE.Color('red'),
+                    new THREE.Color('orange'),
+                    new THREE.Color('yellow'),
+                    new THREE.Color('pink'),
+                    new THREE.Color('purple'),
+                    new THREE.Color('green'),
+                    new THREE.Color('cyan'),
+                    new THREE.Color('blue'),
+                    new THREE.Color('white'),
+                    new THREE.Color('brown'),
+                    new THREE.Color('black'),
+                    new THREE.Color('greay')
+                ];
+
+            var i = 0;
+            if (options.day) {
+                var jsDate = options.day.jsDate;
+                i = jsDate.getMonth();
+            }
+            return new THREE.MeshStandardMaterial({
+
+                color: options.monthColors[i]
+
+            });
+
+            /*
+            var i = 0;
+            if (options.day) {
+
+            var jsDate = options.day.jsDate;
+            i = jsDate.getMonth() * 31;
+
+
+            i += jsDate.getDate();
+
+            }
+
+            return new THREE.MeshStandardMaterial({
+
+            color: colorRange(i / (31 * 12)) //options.monthColors[i]
+
+            });
+             */
+
+            /*
+            var g = 1,
+            b = 0;
+            if (options.day) {
+
+            var jsDate = options.day.jsDate,
+            m = jsDate.getMonth(),
+            d = jsDate.getDate();
+
+            g = m / 11;
+            b = d / 31;
+
+            }
+
+            return new THREE.MeshStandardMaterial({
+
+            color: new THREE.Color(0, g, b)
+
+            });
+             */
 
         },
 

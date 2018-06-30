@@ -25,7 +25,7 @@ getData.get(function (data) {
                     // geometry
                     new THREE.BoxGeometry(d, h, w),
 
-                    materials.standard({
+                    materials.perMonth({
 
                         day: day,
                         data: data
