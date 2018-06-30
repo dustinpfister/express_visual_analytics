@@ -25,7 +25,7 @@ getData.get(function (data) {
                     // geometry
                     new THREE.BoxGeometry(d, h, w),
 
-                    materials.random({
+                    materials.dayOfWeek({
 
                         day: day,
                         data: data

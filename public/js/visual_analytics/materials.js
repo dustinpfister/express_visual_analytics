@@ -8,8 +8,8 @@ var materials = (function () {
             day: {}
         };
         options.data = options.data || {};
-
         options.daysBack = options.daysBack || options.data.days.length;
+		options.opacity = options.opacity || 0;
 
     };
 
@@ -160,6 +160,37 @@ var materials = (function () {
 
         },
 
+        dayOfWeek: function (options) {
+
+            var i = 0;
+
+            options.colors = options.colors || [
+                    new THREE.Color(1, 0, 0),
+                    new THREE.Color(0, 1, 0),
+                    new THREE.Color(1, 1, 0),
+                    new THREE.Color(0, .5, 1),
+                    new THREE.Color(1, 0, 1),
+                    new THREE.Color(1, .5, 0),
+                    new THREE.Color(0, 1, 1)
+                ];
+
+            if (options.day) {
+
+                var jsDate = options.day.jsDate;
+                i = jsDate.getDay();
+
+            }
+
+            return new THREE.MeshStandardMaterial({
+
+                color: options.colors[i],
+				transparent: true,
+				opacity: .5//options.opacity
+
+            });
+
+        },
+
         random: function (options) {
 
             return new THREE.MeshStandardMaterial({
@@ -168,7 +199,7 @@ var materials = (function () {
 
             });
 
-        },
+        }
 
     };
 
