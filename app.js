@@ -20,7 +20,7 @@ app.use('/theme/fonts', express.static(path.join(__dirname, 'themes', app.get('t
 app.use('/theme/css', express.static(path.join(__dirname, 'themes', app.get('theme'), 'css')));
 
 // using fly_json
-app.use('/flyjson', require('./mw/json_fly')({
+app.use('/flyjson', require('./mw/json_fly_va')({
         path_db: path.join(__dirname, 'db', 'db.json')
     }));
 
