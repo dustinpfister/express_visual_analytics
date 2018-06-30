@@ -1,5 +1,5 @@
 
-// "spiraled"
+// "spiraled_canvas"
 getData.get(function (data) {
 
     // using getdata.js to get the json data
@@ -34,13 +34,13 @@ getData.get(function (data) {
         var canvas = document.createElement('canvas'),
         ctx = canvas.getContext('2d');
 
-        canvas.width = 4;
-        canvas.height = 4;
+        canvas.width = 32;
+        canvas.height = 32;
 
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //ctx.fillStyle = '#ffffff';
+        //ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.strokeStyle = '#000000';
         ctx.strokeRect(0, 0, canvas.width, canvas.height);
@@ -49,10 +49,10 @@ getData.get(function (data) {
 
         return new THREE.MeshStandardMaterial({
 
-            color: new THREE.Color(r, g, b),
+            //color: new THREE.Color(r, g, b),
             //emissive: new THREE.Color(1,1,1),
             transparent: true,
-            opacity: .15 + .85 * ((options.day.jsDate.getDay() + 1) / 7),
+            //opacity: .15 + .85 * ((options.day.jsDate.getDay() + 1) / 7),
             map: texture
 
         });
@@ -68,16 +68,15 @@ getData.get(function (data) {
             var jsDate = day.jsDate;
 
             // The Box for this day
-            var d = 1,
-            h = day.users * .125,
-            w = 1,
+            var d = 6,
+            h = day.users * .5,
+            w = 10,
             box = new THREE.Mesh(
 
                     // geometry
                     new THREE.BoxGeometry(d, h, w),
 
-                    materials.dayOfWeek({
-                    //materials.time({
+                    materials.time({
 
                         day: day,
                         data: data
@@ -119,10 +118,12 @@ getData.get(function (data) {
     // position groups
     (function () {
 
-        var step = 2;
-
+        var i = 0,
+        gLen = Object.keys(groups).length,
+        step = 12;
         for (var groupKey in groups) {
 
+            //var step = 15 - 10 * (i/gLen);
             var group = groups[groupKey],
             gInfo = group.userData;
 
@@ -135,6 +136,8 @@ getData.get(function (data) {
             group.position.set(x, y, z);
             group.lookAt(0, 0, 0);
 
+            i += 1;
+
         }
     }
         ());
@@ -142,8 +145,8 @@ getData.get(function (data) {
     // start the camera here
     shell.startCamera({
 
-        position: [-56.46552671104806, 29.956587969042168, -28.437721624416564],
-        lookAt: [64.71206348116684, -1.9597999999999955, 20.763000115905466]
+        position: [-317.30557376337015, 129.78330044414156, 23.731566792281413],
+        lookAt: [105.14386973897454, -1.959799999999997, -54.521924052180154]
 
     });
 
