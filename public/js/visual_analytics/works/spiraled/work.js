@@ -8,6 +8,33 @@ getData.get(function (data) {
     // using three_shell.js
     shell = new threeShell.StandardScene();
 
+    shell.scene.background = new THREE.Color(0, 0, 0);
+
+    // over time material
+    materials.time = function (options) {
+
+        this.setOptions(options);
+
+        var latest = options.data.latest.date,
+        time = latest - options.day.jsDate,
+        per = 1 - (time / (1000 * 60 * 60 * 24 * options.daysBack));
+
+        if (per < 0) {
+            per = 0;
+        }
+
+        if (per > 1) {
+            per = 1;
+        }
+
+        return new THREE.MeshStandardMaterial({
+
+            color: new THREE.Color(1, per, 0)
+
+        });
+
+    };
+
     var groups = {};
     // for each day in the response
     days.forEach(function (day, i) {
@@ -90,12 +117,10 @@ getData.get(function (data) {
     // start the camera here
     shell.startCamera({
 
-        position: [-56.46552671104806,  29.956587969042168, -28.437721624416564],
+        position: [-56.46552671104806, 29.956587969042168, -28.437721624416564],
         lookAt: [64.71206348116684, -1.9597999999999955, 20.763000115905466]
 
     });
-
-    shell.scene.background = new THREE.Color(1, 1, 1);
 
     // can just call the startLoop method
     shell.startLoop();

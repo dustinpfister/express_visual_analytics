@@ -1,18 +1,6 @@
 // materials API
 var materials = (function () {
 
-    var setOptions = function (options) {
-
-        options = options || {};
-        options.day = options.day || {
-            day: {}
-        };
-        options.data = options.data || {};
-        options.daysBack = options.daysBack || options.data.days.length;
-		options.opacity = options.opacity || 0;
-
-    };
-
     // color range
     var colorRange = function (per) {
         var c = 0,
@@ -36,10 +24,22 @@ var materials = (function () {
 
     return {
 
+        setOptions: function (options) {
+
+            options = options || {};
+            options.day = options.day || {
+                day: {}
+            };
+            options.data = options.data || {};
+            options.daysBack = options.daysBack || options.data.days.length;
+            options.opacity = options.opacity || 0;
+
+        },
+
         //  fund out what material to use here
         set: function (options) {
 
-            setOptions(options);
+            this.setOptions(options);
 
             // we should have a latest day
             if (options.data.latest) {
@@ -92,7 +92,7 @@ var materials = (function () {
         // over time material
         time: function (options) {
 
-            setOptions(options);
+            this.setOptions(options);
 
             var latest = options.data.latest.date,
             time = latest - options.day.jsDate,
@@ -116,7 +116,7 @@ var materials = (function () {
 
         perMonth: function (options) {
 
-            setOptions(options);
+            this.setOptions(options);
 
             options.monthColors = options.monthColors || [
                     new THREE.Color('red'),
@@ -162,6 +162,8 @@ var materials = (function () {
 
         dayOfWeek: function (options) {
 
+            this.setOptions(options);
+
             var i = 0;
 
             options.colors = options.colors || [
@@ -184,8 +186,8 @@ var materials = (function () {
             return new THREE.MeshStandardMaterial({
 
                 color: options.colors[i],
-				transparent: true,
-				opacity: .5//options.opacity
+                transparent: true,
+                opacity: .5 //options.opacity
 
             });
 
