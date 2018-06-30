@@ -122,8 +122,10 @@ threeShell = (function () {
         this.el.addEventListener('click', function () {
 
             console.log('********** camera info **********');
-            console.log(self.camera.position);
-            console.log(self.controls.target);
+            console.log(
+                'position : [' + self.camera.position.toArray() + '],' +
+                'lookAt : [' + self.controls.target.toArray() + ']');
+             
             console.log('********** **********');
 
         });

@@ -8,7 +8,7 @@ getData.get(function (data) {
     // using three_shell.js
     shell = new threeShell.StandardScene();
 
-    shell.scene.background = new THREE.Color(1, 1, 1);
+    shell.scene.background = new THREE.Color(0, 0, 0);
 
     // custom over time material
     materials.time = function (options) {
@@ -40,9 +40,10 @@ getData.get(function (data) {
         //ctx.fillStyle = '#ffffff';
         //ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = '#ffffff';
         ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
         var texture = new THREE.CanvasTexture(canvas);
@@ -145,8 +146,10 @@ getData.get(function (data) {
     // start the camera here
     shell.startCamera({
 
-        position: [-317.30557376337015, 129.78330044414156, 23.731566792281413],
-        lookAt: [105.14386973897454, -1.959799999999997, -54.521924052180154]
+        position: [-307.3793306725033, 127.00332146742602, 63.552084284656296],
+        lookAt: [107.82385146221726, -1.9597999999999969, -50.10624803638611]
+
+        //position: [-317.30557376337015, 129.78330044414156, 23.731566792281413],lookAt: [105.14386973897454, -1.959799999999997, -54.521924052180154]
 
     });
 
