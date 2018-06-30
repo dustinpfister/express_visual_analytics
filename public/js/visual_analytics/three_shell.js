@@ -114,6 +114,7 @@ threeShell = (function () {
         this.controls.panSpeed = 0.5;
         this.controls.rotateSpeed = 0.5;
         this.controls.zoomSpeed = 0.5;
+		this.controls.screenSpacePanning = true
 
         addUI.call(this);
         this.startCamera();

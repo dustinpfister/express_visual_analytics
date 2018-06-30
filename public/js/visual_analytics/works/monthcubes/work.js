@@ -8,10 +8,12 @@ getData.get(function (data) {
     // using three_shell.js
     shell = new threeShell.StandardScene();
 
-    shell.scene.background = new THREE.Color(0, 0, 0);
+    var fogColor = new THREE.Color(.25, .25, .25);
+    shell.scene.background = fogColor;
+    shell.scene.fog = new THREE.FogExp2(fogColor, 0.002)
 
-    // custom over time material
-    materials.time = function (options) {
+        // custom over time material
+        materials.time = function (options) {
 
         this.setOptions(options);
 
@@ -43,7 +45,7 @@ getData.get(function (data) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.lineWidth = 8;
-        ctx.strokeStyle = '#ffffff';
+        ctx.strokeStyle = 'rgb(' + Math.floor(255 * per) + ',' + Math.floor(255 - 255 * per) + ',0)';
         ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
         var texture = new THREE.CanvasTexture(canvas);
@@ -143,19 +145,17 @@ getData.get(function (data) {
 
             var cube = cubes[cubeIndex];
             if (!cube) {
-                cube = cubes[cubeIndex] = new THREE.Mesh(
-                        new THREE.BoxGeometry(100, 100, 100),
-                        new THREE.MeshBasicMaterial({
-                            color: new THREE.Color(0, 1, 0),
-                            wireframe: true
-                        }));
-                cube.position.set(cubeIndex * 50, 0, Math.floor(cubeIndex / 2) * -150);
+
+                //cube = cubes[cubeIndex] = new THREE.Mesh(new THREE.BoxGeometry(100, 100, 100),new THREE.MeshBasicMaterial({color: new THREE.Color(0, 1, 0),wireframe: true}));
+                cube = new THREE.Group();
+
+                cube.position.set(cubeIndex * 100, cubeIndex * 100, cubeIndex * 100);
+
+                // !!! need to set scale right
+                //cube.scale.set(.5, .5, .5);
 
                 shell.scene.add(cube);
             }
-
-            // !!! need to set scale right
-            cube.scale.set(.5, .5, .5);
 
             switch (sideIndex) {
 
@@ -164,42 +164,42 @@ getData.get(function (data) {
             case 0:
 
                 group.rotation.set(0, 0, 0);
-                group.position.y = 50;
+                group.position.y = 25;
 
                 break;
 
             case 1:
 
                 group.rotation.set(Math.PI, 0, 0);
-                group.position.y = -50;
+                group.position.y = -25;
 
                 break;
 
             case 2:
 
                 group.rotation.set(Math.PI / 2, 0, 0);
-                group.position.z = 50;
+                group.position.z = 25;
 
                 break;
 
             case 3:
 
                 group.rotation.set(Math.PI / 2, 0, Math.PI);
-                group.position.z = -50;
+                group.position.z = -25;
 
                 break;
 
             case 4:
 
                 group.rotation.set(Math.PI / 2, Math.PI, Math.PI / 2);
-                group.position.x = 50;
+                group.position.x = 25;
 
                 break;
 
             case 5:
 
                 group.rotation.set(Math.PI / 2, Math.PI, -Math.PI / 2);
-                group.position.x = -50;
+                group.position.x = -25;
 
                 break;
 
@@ -215,11 +215,8 @@ getData.get(function (data) {
 
     // start the camera here
     shell.startCamera({
-
-        position: [-76.55056483462057, 176.10684408331133, 319.003126728775],
-        lookAt: [107.82385146221726, -1.9597999999999969, -50.10624803638611]
-
-        //position: [-317.30557376337015, 129.78330044414156, 23.731566792281413],lookAt: [105.14386973897454, -1.959799999999997, -54.521924052180154]
+         position : [-14.56309216287326,-39.997294309027296,-83.78384438170627],lookAt : [129.77210495663797,139.62680403278063,237.40531553007457]
+        //position: [188.76309571525505, 671.6770913282003, 330.4489052472152],lookAt: [334.69138134953243, 91.07993980243003, 94.42752060981051]
 
     });
 
