@@ -67,19 +67,21 @@ getData.get(function (data) {
     // position groups
     (function () {
 
-        var step = 2.5;
+        var step = 2;
 
         for (var groupKey in groups) {
 
             var group = groups[groupKey],
             gInfo = group.userData;
 
-            var len = (gInfo.y - 2017) * 12 + gInfo.m * 1,
+            var len = (gInfo.y - 2017) * 12 + gInfo.m * 1 + 8,
             r = Math.PI * 2 * (len % 12 / 12),
             x = Math.cos(r) * (len * step),
             z = Math.sin(r) * (len * step);
+            y = len * 0;
 
-            group.position.set(x, 0, z)
+            group.position.set(x, y, z);
+            group.lookAt(0, 0, 0);
 
         }
     }
@@ -88,10 +90,12 @@ getData.get(function (data) {
     // start the camera here
     shell.startCamera({
 
-        position: [3.1541, 73.7662, -48.2703],
-        lookAt: [1.3786, -1.9598, 54.7771]
+        position: [-56.46552671104806,  29.956587969042168, -28.437721624416564],
+        lookAt: [64.71206348116684, -1.9597999999999955, 20.763000115905466]
 
     });
+
+    shell.scene.background = new THREE.Color(1, 1, 1);
 
     // can just call the startLoop method
     shell.startLoop();
