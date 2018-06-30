@@ -8,9 +8,9 @@ getData.get(function (data) {
     // using three_shell.js
     shell = new threeShell.StandardScene();
 
-    shell.scene.background = new THREE.Color(0, 0, 0);
+    shell.scene.background = new THREE.Color(1, 1, 1);
 
-    // over time material
+    // custom over time material
     materials.time = function (options) {
 
         this.setOptions(options);
@@ -27,9 +27,33 @@ getData.get(function (data) {
             per = 1;
         }
 
+        var r = .2 + per * .4,
+        g = 0,
+        b = 1 - r;
+
+        var canvas = document.createElement('canvas'),
+        ctx = canvas.getContext('2d');
+
+        canvas.width = 4;
+        canvas.height = 4;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = '#000000';
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        var texture = new THREE.CanvasTexture(canvas);
+
         return new THREE.MeshStandardMaterial({
 
-            color: new THREE.Color(1, per, 0)
+            color: new THREE.Color(r, g, b),
+            //emissive: new THREE.Color(1,1,1),
+            transparent: true,
+            opacity: .15 + .85 * ((options.day.jsDate.getDay() + 1) / 7),
+            map: texture
 
         });
 
@@ -52,7 +76,8 @@ getData.get(function (data) {
                     // geometry
                     new THREE.BoxGeometry(d, h, w),
 
-                    materials.dayOfWeek({
+                    //materials.dayOfWeek({
+                    materials.time({
 
                         day: day,
                         data: data
