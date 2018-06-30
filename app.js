@@ -19,6 +19,10 @@ app.use('/theme/js', express.static( path.join(__dirname,'themes',app.get('theme
 app.use('/theme/fonts', express.static( path.join(__dirname,'themes',app.get('theme'),'fonts') ));
 app.use('/theme/css', express.static( path.join(__dirname,'themes',app.get('theme'),'css') ));
 
+// using fly_json
+app.use('/flyjson', require('./mw/json_fly')({
+        path_db: path.join(__dirname, 'db', 'db.json')
+    }));
 
 // MAIN INDEX
 app.get('/', function (req, res) {
