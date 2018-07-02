@@ -28,6 +28,8 @@ module.exports = function (req, res, next) {
             return date >= sd && date <= ed;
 
         })
+
+        // lodash sortby
         .sortBy(function (day) {
 
             if (sort === 'users') {
@@ -38,7 +40,31 @@ module.exports = function (req, res, next) {
 
             return day[sort];
 
-        }).write().then((data) => {
+        })
+
+        // Array.sort
+        /*
+        .sort(function (dayA, dayB) {
+
+        if (sort === 'users') {
+
+        return Number(dayB.users) - Number(dayA.users);
+
+        }
+
+        if (sort === 'timestamp') {
+
+        return new Date(dayB[sort]).getTime() -new Date(dayA[sort]).getTime();
+
+        }
+
+        return dayA[sort] > dayB[sort];
+
+        })
+
+
+         */
+        .write().then((data) => {
 
             jRes.success = true;
             jRes.mess = 'data for days ' +

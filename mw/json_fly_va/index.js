@@ -17,6 +17,9 @@ flyJS.get('/',
         // check for query string
         require('./check_query'),
 
+        // tabulate
+        require('./response_send_tab'),
+
         // respond to sd and ed query string values
         require('./response_send_sded'),
 
