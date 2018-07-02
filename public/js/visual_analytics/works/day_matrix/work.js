@@ -21,7 +21,7 @@ getData.get(function (data) {
     // for each day in the response
     days.forEach(function (day, i) {
 
-        if (day.date.match(/\d+\/\d+\/\d+/) && day.users > 0) {
+        //if (day.date.match(/\d+\/\d+\/\d+/) && day.users > 0) {
 
             var jsDate = day.jsDate;
 
@@ -51,12 +51,28 @@ getData.get(function (data) {
                     new THREE.BoxGeometry(1, 1, 1),
                     (function () {
 
-                        return new THREE.MeshBasicMaterial({
+                        var canvas = document.createElement('canvas'),
+                        ctx = canvas.getContext('2d');
+
+                        canvas.width = 64;
+                        canvas.height = 64;
+
+                        ctx.fillStyle = '#ff0000';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillText(day.date, 10, 10);
+                        ctx.fillText(day.users, 10, 30);
+
+                        var texture = new THREE.CanvasTexture(canvas);
+
+                        return new THREE.MeshStandardMaterial({
 
                             //wireframe: true
-                            color: 0x000000,
-                            transparent: true,
-                            opacity: .5
+                            //color: 0x000000,
+                            //transparent: true,
+                            opacity: .5,
+                            map: texture
 
                         })
 
@@ -69,15 +85,15 @@ getData.get(function (data) {
             shell.scene.add(bar);
             shell.scene.add(cube);
 
-        }
+        //}
 
     });
 
     // start the camera here
     shell.startCamera({
 
-        position: [-4.862419273850179, 15.387518615916813, -4.764027047735164],
-        lookAt: [3.7836326754453897, 8.462837651634782, 3.236078193879614]
+        position: [-1.4392469721658716, 1.0114560976233171, -1.691763780883234],
+        lookAt: [2.0871152513244455, 1.289064193907922, 3.5582157784820523]
 
     });
 

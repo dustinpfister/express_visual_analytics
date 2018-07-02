@@ -113,10 +113,10 @@ threeShell = (function () {
         this.controls = new THREE.OrbitControls(this.camera, this.el);
         this.controls.panSpeed = 0.5;
         this.controls.rotateSpeed = 0.5;
-        this.controls.zoomSpeed = 0.5;
-		this.controls.screenSpacePanning = true
+        this.controls.zoomSpeed = 1;
+        this.controls.screenSpacePanning = true
 
-        addUI.call(this);
+            addUI.call(this);
         this.startCamera();
 
         // log camera info on click
@@ -126,7 +126,7 @@ threeShell = (function () {
             console.log(
                 'position : [' + self.camera.position.toArray() + '],' +
                 'lookAt : [' + self.controls.target.toArray() + ']');
-             
+
             console.log('********** **********');
 
         });

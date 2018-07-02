@@ -5,7 +5,7 @@ var getData = (function () {
 
     //api.dbUrl = '/json/db.json';
 
-    api.dbUrl = '/flyjson?sd=1/1/17&ed=6/29/18';
+    api.dbUrl = '/flyjson?sd=1/1/18&ed=6/1/18';
 
     api.get = function (done) {
 
