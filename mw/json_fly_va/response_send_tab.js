@@ -29,24 +29,29 @@ module.exports = function (req, res, next) {
 
         }).write().then(function (data) {
 
-            
             let total = 0;
             data.forEach(function (day) {
 
-            total += Number(day.users);
+                total += Number(day.users);
 
             });
-             
-			
+
+            // make sure we have a proper array
+            if (data.length > days * count) {
+
+                data = _.drop(data, data.length - days * count);
+
+            }
 
             // chunk the data by days
             data = _.chunk(data, days);
 
             let totals = [];
-            data.forEach(function (days) {
+            data.forEach(function (dayArray) {
 
                 let t = 0;
-                days.forEach(function (day) {
+                //if (dayArray.length === days) {
+                dayArray.forEach(function (day) {
 
                     t += Number(day.users);
 
@@ -55,12 +60,15 @@ module.exports = function (req, res, next) {
                 totals.push({
 
                     userTotal: t,
-                    days: days
+                    sd: dayArray[0].date,
+                    ed: dayArray[dayArray.length - 1].date,
+                    days: dayArray
 
                 });
 
-            });
+                //}
 
+            });
 
             jRes.success = true;
             jRes.mess = 'tabulation from ' + req.query.sd + ' going back ' + days + ' days';
