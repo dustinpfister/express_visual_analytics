@@ -1,5 +1,16 @@
 
 // "day_matrix" work for visual_analytics
+
+/*
+getData.setQuery({
+
+    sd: '1/1/18',
+    ed: '6/1/18',
+    sort: 'date'
+
+});
+*/
+
 getData.get(function (data) {
 
     // using getdata.js to get the json data
@@ -23,67 +34,67 @@ getData.get(function (data) {
 
         //if (day.date.match(/\d+\/\d+\/\d+/) && day.users > 0) {
 
-            var jsDate = day.jsDate;
+        var jsDate = day.jsDate;
 
-            // The Box for this day
-            var d = 1,
-            h = day.users / highest * 10,
-            w = 1;
+        // The Box for this day
+        var d = 1,
+        h = day.users / highest * 10,
+        w = 1;
 
-            var bar = new THREE.Mesh(
-                    // geometry
-                    new THREE.BoxGeometry(d, h, w),
-                    materials.standard());
+        var bar = new THREE.Mesh(
+                // geometry
+                new THREE.BoxGeometry(d, h, w),
+                materials.standard());
 
-            var row = Math.floor(i / 28),
-            col = i % 28;
+        var row = Math.floor(i / 28),
+        col = i % 28;
 
-            if (h > 4) {
+        if (h > 4) {
 
-                console.log(highest);
+            console.log(highest);
 
-            }
+        }
 
-            bar.position.set(row * 2, h / 2, col * 2);
+        bar.position.set(row * 2, h / 2, col * 2);
 
-            var cube = new THREE.Mesh(
-                    // geometry
-                    new THREE.BoxGeometry(1, 1, 1),
-                    (function () {
+        var cube = new THREE.Mesh(
+                // geometry
+                new THREE.BoxGeometry(1, 1, 1),
+                (function () {
 
-                        var canvas = document.createElement('canvas'),
-                        ctx = canvas.getContext('2d');
+                    var canvas = document.createElement('canvas'),
+                    ctx = canvas.getContext('2d');
 
-                        canvas.width = 64;
-                        canvas.height = 64;
+                    canvas.width = 64;
+                    canvas.height = 64;
 
-                        ctx.fillStyle = '#ff0000';
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#ff0000';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                        ctx.fillStyle = '#ffffff';
-                        ctx.fillText(day.date, 10, 10);
-                        ctx.fillText(day.users, 10, 30);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillText(day.date, 10, 10);
+                    ctx.fillText(day.users, 10, 30);
 
-                        var texture = new THREE.CanvasTexture(canvas);
+                    var texture = new THREE.CanvasTexture(canvas);
 
-                        return new THREE.MeshStandardMaterial({
+                    return new THREE.MeshStandardMaterial({
 
-                            //wireframe: true
-                            //color: 0x000000,
-                            //transparent: true,
-                            opacity: .5,
-                            map: texture
+                        //wireframe: true
+                        //color: 0x000000,
+                        //transparent: true,
+                        opacity: .5,
+                        map: texture
 
-                        })
+                    })
 
-                    }
-                        ()));
+                }
+                    ()));
 
-            cube.position.set(row * 2, h / 2 * 2 + .5, col * 2);
+        cube.position.set(row * 2, h / 2 * 2 + .5, col * 2);
 
-            //  add the bar
-            shell.scene.add(bar);
-            shell.scene.add(cube);
+        //  add the bar
+        shell.scene.add(bar);
+        shell.scene.add(cube);
 
         //}
 

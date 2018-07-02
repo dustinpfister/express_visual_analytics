@@ -5,6 +5,8 @@ module.exports = function (req, res, next) {
 
     if (req.query.sd) {
 
+        let sort = req.query.sort || 'timestamp';
+
         let sd = req.query.sd.split('/'),
         ed = sd;
 
@@ -26,7 +28,17 @@ module.exports = function (req, res, next) {
             return date >= sd && date <= ed;
 
         })
-        .sortBy('date').write().then((data) => {
+        .sortBy(function (day) {
+
+            if (sort === 'users') {
+
+                return Number(day.users);
+
+            }
+
+            return day[sort];
+
+        }).write().then((data) => {
 
             jRes.success = true;
             jRes.mess = 'data for days ' +

@@ -5,7 +5,18 @@ var getData = (function () {
 
     //api.dbUrl = '/json/db.json';
 
-    api.dbUrl = '/flyjson?sd=1/1/18&ed=6/1/18';
+    api.dbUrl = '/flyjson?sd=1/1/17&ed=6/29/18';
+
+    api.setQuery = function (options) {
+
+        options = options || {};
+        options.sd = options.sd || '1/1/17';
+        options.ed = options.ed || '1/1/17';
+        options.sort = options.sort || 'timestamp';
+
+        this.dbUrl = '/flyjson?sd=' + options.sd + '&ed=' + options.ed + '&sort=' + options.sort;
+
+    };
 
     api.get = function (done) {
 
