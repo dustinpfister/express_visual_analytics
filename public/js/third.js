@@ -30,7 +30,7 @@ $.ajax({
     // I will need an camera to look at objects in the scene
     var aspect = 32 / 24,
     aspectLevel = 480;
-    var camera = new THREE.PerspectiveCamera(75, aspect, 1, 1000);
+    var camera = new THREE.PerspectiveCamera(75, aspect, 1, 10000);
 
     var light = new THREE.PointLight();
     light.position.set(0, 25, 0);

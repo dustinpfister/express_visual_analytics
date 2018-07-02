@@ -76,7 +76,7 @@ threeShell = (function () {
         this.aspect = 32 / 24;
         this.aspectLevel = 480;
 
-        this.camera = new THREE.PerspectiveCamera(75, this.aspect, 1, 1000);
+        this.camera = new THREE.PerspectiveCamera(75, this.aspect, 1, 10000);
 
         var light = new THREE.PointLight();
         this.camera.add(light);
