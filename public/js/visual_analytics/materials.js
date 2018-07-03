@@ -28,11 +28,18 @@ var materials = (function () {
 
             options = options || {};
             options.day = options.day || {
-                day: {}
+                users: 0,
+                date: '1/1/10'
             };
-            options.data = options.data || {};
+            options.data = options.data || {
+
+                days: []
+
+            };
             options.daysBack = options.daysBack || options.data.days.length;
             options.opacity = options.opacity || 0;
+
+            return options;
 
         },
 

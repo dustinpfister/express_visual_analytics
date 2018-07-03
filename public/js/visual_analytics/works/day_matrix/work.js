@@ -1,16 +1,12 @@
 
 // "day_matrix" work for visual_analytics
-
-/*
 getData.setQuery({
 
-sd: '1/1/18',
-ed: '6/1/18',
-sort: 'date'
+    sd: '1/1/18',
+    ed: '6/1/18',
+    sort: 'users'
 
 });
- */
-
 getData.get(function (data) {
 
     // using getdata.js to get the json data
@@ -29,6 +25,50 @@ getData.get(function (data) {
         }
     });
 
+    // a wood material maybe?
+    materials.wood = function (options) {
+
+        return new THREE.MeshStandardMaterial({
+
+            color: 0xaf8a00
+
+        });
+
+    };
+
+    // an info material?
+    materials.info = function (options) {
+
+        options = this.setOptions(options);
+
+        var canvas = document.createElement('canvas'),
+        ctx = canvas.getContext('2d');
+
+        canvas.width = 128;
+        canvas.height = 128;
+
+        ctx.fillStyle = '#ff0000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.fillText('date: ' + options.day.date, 64, 40);
+        ctx.fillText('users: ' + options.day.users, 64, 60);
+
+        var texture = new THREE.CanvasTexture(canvas);
+
+        return new THREE.MeshStandardMaterial({
+
+            //wireframe: true
+            //color: 0x000000,
+            transparent: true,
+            opacity: .8,
+            map: texture
+
+        });
+
+    };
+
     // for each day in the response
     days.forEach(function (day, i) {
 
@@ -38,58 +78,28 @@ getData.get(function (data) {
 
             // The Box for this day
             var d = 1,
-            h = day.users / highest * 10,
+            h = day.users / highest * 50,
             w = 1;
 
             var bar = new THREE.Mesh(
                     // geometry
                     new THREE.BoxGeometry(d, h, w),
-                    materials.standard());
+                    materials.wood());
 
             var row = Math.floor(i / 28),
             col = i % 28;
-
-            if (h > 4) {
-
-                console.log(highest);
-
-            }
 
             bar.position.set(row * 2, h / 2, col * 2);
 
             var cube = new THREE.Mesh(
                     // geometry
                     new THREE.BoxGeometry(1, 1, 1),
-                    (function () {
 
-                        var canvas = document.createElement('canvas'),
-                        ctx = canvas.getContext('2d');
+                    materials.info({
 
-                        canvas.width = 128;
-                        canvas.height = 128;
+                        day: day
 
-                        ctx.fillStyle = '#ff0000';
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                        ctx.fillStyle = '#ffffff';
-                        ctx.textAlign = 'center';
-                        ctx.fillText('date: ' + day.date, 64, 40);
-                        ctx.fillText('users: ' + day.users, 64, 60);
-
-                        var texture = new THREE.CanvasTexture(canvas);
-
-                        return new THREE.MeshStandardMaterial({
-
-                            //wireframe: true
-                            //color: 0x000000,
-                            transparent: true,
-                            opacity: .8,
-                            map: texture
-
-                        })
-
-                    }
-                        ()));
+                    }));
 
             cube.position.set(row * 2, h / 2 * 2 + .5, col * 2);
 
@@ -104,8 +114,8 @@ getData.get(function (data) {
     // start the camera here
     shell.startCamera({
 
-        position: [-1.4392469721658716, 1.0114560976233171, -1.691763780883234],
-        lookAt: [2.0871152513244455, 1.289064193907922, 3.5582157784820523]
+        position: [-5.951581141857064, 8.501525417463574, -3.3300546776065056],
+        lookAt: [2.906165425885311, 3.8934451356375184, 5.998022643139286]
 
     });
 
