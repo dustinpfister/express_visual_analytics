@@ -3,7 +3,7 @@
 getData.setQuery({
 
     sd: '1/1/18',
-    ed: '6/1/18',
+    ed: '6/26/18',
     sort: 'users'
 
 });
