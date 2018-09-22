@@ -11,13 +11,10 @@ app.set('view engine', 'ejs');
 
 // STATIC PATHS
 app.use('/js', express.static('public/js'));
-app.use('/json', express.static('public/json'));
-app.use('/css', express.static('public/css'));
 app.use('/img', express.static('public/img'));
 
 // theme statics
 app.use('/theme/js', express.static(path.join(__dirname, 'themes', app.get('theme'), 'js')));
-app.use('/theme/fonts', express.static(path.join(__dirname, 'themes', app.get('theme'), 'fonts')));
 app.use('/theme/css', express.static(path.join(__dirname, 'themes', app.get('theme'), 'css')));
 
 // using fly_json
